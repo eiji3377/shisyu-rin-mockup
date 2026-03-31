@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>刺繍工房りん - モックアップ v11</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@400;500;700&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --color-bg: #FAF7F2;
+    --color-text: #3D3532;
+    --color-text-light: #6B5E57;
+    --color-accent: #C4713B;
+    --color-accent-soft: #D4956A;
+    --color-accent-hover: #A85C2E;
+    --color-cream: #FFF8F0;
+    --color-sage-light: #D0DECA;
+    --color-border: #E0D6CB;
+    --color-white: #FFFFFF;
+    --color-line: #06C755;
+    --color-line-hover: #05B04C;
+    --font-body: 'Zen Maru Gothic', sans-serif;
+    --font-heading: 'Noto Serif JP', serif;
+    --shadow-soft: 0 2px 20px rgba(61,53,50,0.06);
+    --shadow-card: 0 4px 24px rgba(61,53,50,0.08);
+    --shadow-hover: 0 8px 32px rgba(61,53,50,0.12);
+    --radius: 12px;
+    --radius-lg: 20px;
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:var(--font-body); color:var(--color-text); background:var(--color-bg); line-height:1.8; -webkit-font-smoothing:antialiased; }
+
+  /* ===== HEADER ===== */
+  header {
+    position:fixed; top:0; left:0; right:0; z-index:100;
+    padding:0 40px; backdrop-filter:blur(12px);
+    background:rgba(255,255,255,0.85);
+    border-bottom:1px solid rgba(224,214,203,0.4);
+  }
+  .header-inner { max-width:1100px; margin:0 auto; display:flex; align-items:center; justify-content:space-between; height:72px; }
+  .logo { display:flex; align-items:center; gap:12px; text-decoration:none; color:var(--color-text); }
+  .logo-icon { width:40px; height:40px; background:var(--color-accent); border-radius:50%; display:flex; align-items:center; justify-content:center; color:#fff; font-family:var(--font-heading); font-size:18px; font-weight:600; }
+  .logo-text { font-family:var(--font-heading); font-size:18px; font-weight:600; letter-spacing:.05em; }
+  .logo-sub { font-size:11px; color:var(--color-text-light); display:block; }
+  nav.desktop-nav { display:flex; align-items:center; }
+  nav a { text-decoration:none; color:var(--color-text-light); font-size:14px; font-weight:500; margin-left:32px; transition:color .2s; position:relative; }
+  nav a::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:var(--color-accent); transition:width .3s ease; }
+  nav a:hover { color:var(--color-accent); }
+  nav a:hover::after { width:100%; }
+  .nav-cta { background:var(--color-accent)!important; color:#fff!important; padding:8px 20px; border-radius:24px; font-size:13px!important; }
+  .nav-cta::after { display:none!important; }
+  .nav-cta:hover { background:var(--color-accent-hover)!important; }
+  .hamburger { display:none; flex-direction:column; gap:5px; cursor:pointer; padding:8px; background:none; border:none; }
+  .hamburger span { display:block; width:24px; height:2px; background:var(--color-text); border-radius:2px; }
+  .mobile-nav { display:none; position:fixed; top:72px; left:0; right:0; background:rgba(255,255,255,0.97); backdrop-filter:blur(12px); padding:24px 20px 32px; border-bottom:1px solid var(--color-border); z-index:99; flex-direction:column; }
+  .mobile-nav.open { display:flex; }
+  .mobile-nav a { display:block; text-decoration:none; color:var(--color-text); font-size:15px; font-weight:500; padding:14px 0; border-bottom:1px solid var(--color-border); }
+  .mobile-nav a:last-child { border-bottom:none; }
+  .mobile-nav .nav-cta-mobile { display:block; text-align:center; margin-top:16px; background:var(--color-accent); color:#fff; padding:12px; border-radius:24px; font-weight:700; border-bottom:none; }
+
+  /* ===== LINE FLOAT ===== */
+  .line-float { position:fixed; bottom:28px; right:28px; z-index:200; display:flex; align-items:center; gap:10px; background:var(--color-line); color:#fff; text-decoration:none; padding:14px 24px; border-radius:40px; font-size:14px; font-weight:700; box-shadow:0 4px 20px rgba(6,199,85,0.35); transition:transform .2s,box-shadow .2s,background .2s; }
+  .line-float:hover { transform:translateY(-3px); box-shadow:0 8px 28px rgba(6,199,85,0.45); background:var(--color-line-hover); }
+  .line-float svg { width:22px; height:22px; fill:#fff; flex-shrink:0; }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    width: 100%;
+    height: calc(100vh - 72px);
+    margin-top: 72px;
+    overflow: hidden;
+    background: var(--color-bg-warm, #EDE6DC);
+  }
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+  }
+  .hero-bg picture,
+  .hero-bg img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+  }
+  /* Placeholder text when no image */
+  .hero-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    color: rgba(61,53,50,0.25);
+    letter-spacing: 0.1em;
+    pointer-events: none;
+  }
+
+  .hero-catch {
+    position:absolute; z-index:2;
+    bottom:80px; left:120px;
+    font-family:var(--font-heading); font-weight:600; line-height:1.5;
+  }
+  .hero-catch .line1,
+  .hero-catch .line2 {
+    display:block; font-size:60px; color:#fff;
+    text-shadow:0 2px 24px rgba(0,0,0,0.5), 0 0 60px rgba(0,0,0,0.2);
+    background:linear-gradient(90deg, #fff 50%, transparent 50%);
+    background-size:200% 100%; background-position:100% 0;
+    -webkit-background-clip:text; background-clip:text;
+    -webkit-text-fill-color:transparent;
+  }
+  .hero-catch .line1 { animation:stitchReveal 4s ease-out forwards; }
+  .hero-catch .line2 { padding-left:2.5em; animation:stitchReveal 4s ease-out forwards 0.8s; }
+
+  .hero-catch-shadow {
+    position:absolute; z-index:1;
+    bottom:80px; left:120px;
+    font-family:var(--font-heading); font-weight:600; line-height:1.5;
+    pointer-events:none;
+  }
+  .hero-catch-shadow .line1,
+  .hero-catch-shadow .line2 {
+    display:block; font-size:60px;
+    color:transparent; -webkit-text-fill-color:transparent;
+    text-shadow:0 2px 24px rgba(0,0,0,0.5), 0 0 60px rgba(0,0,0,0.25);
+  }
+  .hero-catch-shadow .line2 { padding-left:2.5em; }
+
+  /* SP text hidden on PC */
+  .hero-catch-sp { display:none; }
+
+  @keyframes stitchReveal {
+    0% { background-position:100% 0; }
+    100% { background-position:0% 0; }
+  }
+
+  /* ===== INTRO ===== */
+  .intro { background:var(--color-white); padding:56px 40px; text-align:center; }
+  .intro-inner { max-width:700px; margin:0 auto; }
+  .intro-badges { display:flex; gap:12px; justify-content:center; flex-wrap:wrap; margin-bottom:24px; }
+  .intro-badge { background:rgba(196,113,59,0.08); border:1px solid var(--color-accent-soft); color:var(--color-accent); padding:8px 20px; border-radius:24px; font-size:14px; font-weight:700; }
+  .intro p { font-family:var(--font-body); font-size:18px; color:var(--color-text-light); line-height:2; margin-bottom:32px; }
+  .intro-cta { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+  /* ===== SECTION ===== */
+  section { padding:80px 40px; }
+  .section-inner { max-width:1100px; margin:0 auto; }
+  .section-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.15em; color:var(--color-accent); margin-bottom:8px; }
+  .section-title { font-family:var(--font-heading); font-size:26px; font-weight:600; margin-bottom:16px; line-height:1.5; }
+  .section-desc { color:var(--color-text-light); font-size:16px; max-width:600px; margin-bottom:48px; }
+
+  /* ===== SERVICES ===== */
+  .services { background:var(--color-bg); }
+  .service-item { display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-bottom:64px; padding-bottom:64px; border-bottom:1px solid var(--color-border); }
+  .service-item:last-child { margin-bottom:0; padding-bottom:0; border-bottom:none; }
+  .service-item:nth-child(even) { direction:rtl; }
+  .service-item:nth-child(even) > * { direction:ltr; }
+  .service-image { width:100%; height:300px; border-radius:var(--radius-lg); overflow:hidden; box-shadow:var(--shadow-card); transition:transform .4s ease,box-shadow .4s ease; }
+  .service-image:hover { transform:translateY(-4px); box-shadow:var(--shadow-hover); }
+  .service-image img { width:100%; height:100%; object-fit:cover; transition:transform .6s ease; }
+  .service-image:hover img { transform:scale(1.03); }
+  .service-header { display:flex; align-items:center; gap:14px; margin-bottom:16px; }
+  .service-num { font-family:var(--font-heading); font-size:44px; font-weight:600; color:rgba(196,113,59,0.25); line-height:1; flex-shrink:0; }
+  .service-header h3 { font-family:var(--font-heading); font-size:20px; font-weight:600; line-height:1.4; }
+  .service-body p { font-size:16px; color:var(--color-text-light); line-height:2; margin-bottom:16px; }
+  .service-link { display:inline-flex; align-items:center; gap:6px; font-size:14px; font-weight:700; color:var(--color-accent); text-decoration:none; transition:gap .2s; }
+  .service-link:hover { gap:10px; }
+
+  /* ===== MERIT ===== */
+  .merits-section { background:var(--color-white); }
+  .merits-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:32px; }
+  .merit-card { background:var(--color-bg); border-radius:var(--radius); padding:36px 28px; box-shadow:var(--shadow-soft); border:1px solid var(--color-border); position:relative; overflow:hidden; }
+  .merit-card::before { content:''; position:absolute; top:0; left:0; width:4px; height:100%; background:var(--color-accent); border-radius:0 2px 2px 0; }
+  .merit-number { font-family:var(--font-heading); font-size:42px; font-weight:600; color:rgba(196,113,59,0.25); line-height:1; margin-bottom:12px; }
+  .merit-card h3 { font-family:var(--font-heading); font-size:18px; font-weight:600; margin-bottom:12px; }
+  .merit-card p { font-size:15px; color:var(--color-text-light); line-height:1.9; }
+
+  /* ===== FLOW ===== */
+  .flow-section { background:var(--color-bg); }
+  .flow-steps { display:grid; grid-template-columns:repeat(4,1fr); gap:20px; position:relative; }
+  .flow-steps::before { content:''; position:absolute; top:40px; left:12.5%; width:75%; height:2px; background:linear-gradient(to right,var(--color-accent-soft),var(--color-sage-light)); }
+  .flow-step { text-align:center; position:relative; z-index:1; }
+  .flow-circle { width:80px; height:80px; border-radius:50%; background:var(--color-white); border:3px solid var(--color-accent-soft); display:flex; align-items:center; justify-content:center; margin:0 auto 20px; font-size:28px; transition:transform .3s,border-color .3s; }
+  .flow-step:hover .flow-circle { transform:scale(1.08); border-color:var(--color-accent); }
+  .flow-step-num { font-size:12px; font-weight:700; color:var(--color-accent); margin-bottom:6px; letter-spacing:.1em; }
+  .flow-step h3 { font-family:var(--font-heading); font-size:15px; font-weight:600; margin-bottom:8px; }
+  .flow-step p { font-size:14px; color:var(--color-text-light); line-height:1.7; }
+
+  /* ===== CTA ===== */
+  .cta-section { background:linear-gradient(135deg,var(--color-accent) 0%,var(--color-accent-soft) 100%); text-align:center; color:#fff; position:relative; overflow:hidden; }
+  .cta-section::before { content:''; position:absolute; top:-50%; right:-20%; width:400px; height:400px; background:rgba(255,255,255,0.06); border-radius:50%; }
+  .cta-section .section-inner { position:relative; z-index:1; }
+  .cta-title { font-family:var(--font-heading); font-size:28px; font-weight:600; margin-bottom:12px; }
+  .cta-desc { font-size:16px; opacity:.9; margin-bottom:36px; }
+  .cta-buttons { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+
+  /* ===== BUTTONS ===== */
+  .btn { display:inline-flex; align-items:center; gap:8px; padding:14px 32px; border-radius:32px; font-size:15px; font-weight:700; font-family:var(--font-body); text-decoration:none; transition:transform .2s,box-shadow .2s; cursor:pointer; border:none; }
+  .btn:hover { transform:translateY(-2px); }
+  .btn-white { background:#fff; color:var(--color-accent); box-shadow:0 4px 16px rgba(0,0,0,0.1); }
+  .btn-outline-white { background:transparent; color:#fff; border:2px solid rgba(255,255,255,0.5); }
+  .btn-outline-white:hover { border-color:#fff; }
+  .btn-accent { background:var(--color-accent); color:#fff; box-shadow:0 4px 16px rgba(196,113,59,0.3); }
+  .btn-accent:hover { background:var(--color-accent-hover); }
+  .btn-outline-accent { background:transparent; color:var(--color-accent); border:2px solid var(--color-accent-soft); }
+  .btn-outline-accent:hover { border-color:var(--color-accent); background:rgba(196,113,59,0.04); }
+
+  /* ===== NOTE ===== */
+  .note-box { background:var(--color-cream); border:1px solid var(--color-border); border-radius:var(--radius); padding:24px 28px; margin-top:48px; font-size:14px; color:var(--color-text-light); line-height:2; }
+  .note-box strong { color:var(--color-text); }
+
+  /* ===== FOOTER ===== */
+  footer { background:var(--color-text); color:rgba(255,255,255,0.6); padding:48px 40px 32px; }
+  .footer-inner { max-width:1100px; margin:0 auto; display:flex; justify-content:space-between; align-items:center; }
+  .footer-logo { color:#fff; font-family:var(--font-heading); font-size:16px; font-weight:600; }
+  .footer-logo small { display:block; font-size:11px; font-weight:400; color:rgba(255,255,255,0.4); font-family:var(--font-body); margin-top:4px; }
+  footer p { font-size:12px; }
+
+  .fade-up { opacity:0; transform:translateY(24px); transition:opacity .6s ease,transform .6s ease; }
+  .fade-up.visible { opacity:1; transform:translateY(0); }
+
+  /* ============================================================
+     MOBILE
+     ============================================================ */
+  @media (max-width:768px) {
+    header { padding:0 20px; }
+    nav.desktop-nav { display:none; }
+    .hamburger { display:flex; }
+
+    /* HERO: full width, appropriate mobile height */
+    .hero {
+      height: calc(100vh - 72px);
+      max-height: 600px;
+    }
+
+    /* Hide PC text */
+    .hero-catch { display:none !important; }
+    .hero-catch-shadow { display:none !important; }
+
+    /* Mobile catchphrase: bottom-left of image */
+    .hero-catch-sp {
+      display: block;
+      position: absolute;
+      bottom: 20px;
+      left: 20px;
+      z-index: 2;
+      font-family: var(--font-heading);
+      font-weight: 600;
+      line-height: 1.5;
+    }
+    .hero-catch-sp .line1,
+    .hero-catch-sp .line2 {
+      display: block;
+      font-size: 28px;
+      color: #fff;
+      text-shadow: 0 2px 16px rgba(0,0,0,0.5), 0 0 40px rgba(0,0,0,0.2);
+      background: linear-gradient(90deg, #fff 50%, transparent 50%);
+      background-size: 200% 100%;
+      background-position: 100% 0;
+      -webkit-background-clip: text;
+      background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .hero-catch-sp .line1 {
+      animation: stitchReveal 4s ease-out forwards;
+    }
+    .hero-catch-sp .line2 {
+      padding-left: 2em;
+      animation: stitchReveal 4s ease-out forwards 0.8s;
+    }
+
+    /* Intro: no gap, left-align text on mobile */
+    .intro { padding: 40px 20px; text-align: left; }
+    .intro-inner { text-align: left; }
+    .intro-badges { justify-content: flex-start; }
+    .intro-cta { justify-content: flex-start; }
+
+    /* Services */
+    .service-item {
+      display:flex; flex-direction:column; gap:16px;
+      margin-bottom:48px; padding-bottom:48px;
+    }
+    .service-item:nth-child(even) { direction:ltr; }
+    .service-info { display:contents; }
+    .service-header { order:1; }
+    .service-image { order:2; height:220px; }
+    .service-body { order:3; }
+    .service-num { font-size:32px; }
+    .service-header h3 { font-size:18px; }
+
+    .merits-grid { grid-template-columns:1fr; gap:20px; }
+    .flow-steps { grid-template-columns:repeat(2,1fr); gap:32px 20px; }
+    .flow-steps::before { display:none; }
+    section { padding:60px 20px; }
+    .section-title { font-size:22px; }
+    .line-float { bottom:20px; right:20px; padding:12px 20px; font-size:13px; }
+    .footer-inner { flex-direction:column; gap:16px; text-align:center; }
+  }
+
+  @media (max-width:480px) {
+    .hero-catch-sp .line1,
+    .hero-catch-sp .line2 { font-size:22px; }
+    .intro-badges { gap:8px; }
+    .intro-badge { font-size:13px; padding:6px 14px; }
+    .intro-cta { flex-direction:column; }
+    .intro-cta .btn { text-align:center; justify-content:center; }
+    .service-num { font-size:28px; }
+    .service-header h3 { font-size:16px; }
+    .service-image { height:200px; }
+    .flow-steps { grid-template-columns:1fr; }
+    .line-float span { display:none; }
+    .line-float { padding:14px; border-radius:50%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo"><div class="logo-icon">凛</div><div><span class="logo-text">刺繍工房りん</span><span class="logo-sub">山口県の刺繍屋さん</span></div></a>
+    <nav class="desktop-nav"><a href="#">サービス</a><a href="#">ご利用の流れ</a><a href="#">よくある質問</a><a href="#" class="nav-cta">お問合せ</a></nav>
+    <button class="hamburger" onclick="document.querySelector('.mobile-nav').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+</header>
+<div class="mobile-nav"><a href="#">サービス</a><a href="#">ご利用の流れ</a><a href="#">よくある質問</a><a href="#" class="nav-cta-mobile">お問合せ</a></div>
+
+<a href="https://line.me/R/ti/p/@471rquqr" class="line-float" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63h2.386c.346 0 .627.285.627.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.271.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.63-.63.346 0 .628.285.628.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.282.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
+  <span>LINEで相談する</span>
+</a>
+
+<section class="hero">
+  <div class="hero-bg">
+    <picture>
+      <!-- モバイル用画像（768px以下）: 推奨サイズ 1080x1440px (3:4) -->
+      <source media="(max-width:768px)" srcset="https://shisyu112-rin.com/wp-content/uploads/2024/06/ed624dfb638173d216d5e397271b667f.jpg">
+      <!-- PC用画像: 推奨サイズ 2400x1200px (2:1) -->
+      <img src="https://shisyu112-rin.com/wp-content/uploads/2024/06/ed624dfb638173d216d5e397271b667f.jpg" alt="刺繍工房りんの作品">
+    </picture>
+  </div>
+  <div class="hero-placeholder">PC: 2400×1200px ／ SP: 1080×1440px の画像を用意</div>
+  <div class="hero-catch-shadow" aria-hidden="true"><span class="line1">丁寧な刺繍で</span><span class="line2">想いを形に</span></div>
+  <div class="hero-catch"><span class="line1">丁寧な刺繍で</span><span class="line2">想いを形に</span></div>
+  <div class="hero-catch-sp"><span class="line1">丁寧な刺繍で</span><span class="line2">想いを形に</span></div>
+</section>
+
+<div class="intro">
+  <div class="intro-inner fade-up">
+    <div class="intro-badges"><span class="intro-badge">1枚からOK</span><span class="intro-badge">個人・法人対応</span><span class="intro-badge">見積もり無料</span></div>
+    <p>オリジナルデザインの刺繍から、会社・個人のネーム入れまで。<br>大量注文でなくても大丈夫。1枚からお気軽にご相談ください。</p>
+    <div class="intro-cta"><a href="#" class="btn btn-accent">無料で相談する →</a><a href="#" class="btn btn-outline-accent">サービスを見る ↓</a></div>
+  </div>
+</div>
+
+<section class="services">
+  <div class="section-inner">
+    <div class="section-label fade-up">Services</div>
+    <h2 class="section-title fade-up">承っている刺繍サービス</h2>
+    <p class="section-desc fade-up">用途やご要望に合わせて、さまざまな刺繍に対応しております。</p>
+    <div class="service-item fade-up">
+      <div class="service-image"><img src="https://shisyu112-rin.com/wp-content/uploads/2025/02/original-design-embroidery.jpg" alt="オリジナルデザイン刺繍"></div>
+      <div class="service-info"><div class="service-header"><div class="service-num">01</div><h3>オリジナルデザイン刺繍</h3></div><div class="service-body"><p>お客様だけのオリジナルデザインを刺繍で形にします。ロゴやイラスト、キャラクターなど、ご要望に合わせてお作りします。</p><a href="#" class="service-link">詳しく見る →</a></div></div>
+    </div>
+    <div class="service-item fade-up">
+      <div class="service-image"><img src="https://shisyu112-rin.com/wp-content/uploads/2025/02/Embroidery-of-company-name.jpg" alt="会社のネーム入れ刺繍"></div>
+      <div class="service-info"><div class="service-header"><div class="service-num">02</div><h3>会社のネーム入れ</h3></div><div class="service-body"><p>作業着やユニフォームへの社名刺繍。すでに入っている刺繍を解いて入れ替える場合は、別途300〜500円程度で対応いたします。</p><a href="#" class="service-link">お問い合わせ →</a></div></div>
+    </div>
+    <div class="service-item fade-up">
+      <div class="service-image"><img src="https://shisyu112-rin.com/wp-content/uploads/2025/02/embroidery-of-personal-name.jpg" alt="個人のネーム入れ刺繍"></div>
+      <div class="service-info"><div class="service-header"><div class="service-num">03</div><h3>個人のネーム入れ</h3></div><div class="service-body"><p>プレゼントやお子様の持ち物への名入れ刺繍。世界にひとつだけの特別な贈り物にぴったりです。</p><a href="#" class="service-link">お問い合わせ →</a></div></div>
+    </div>
+    <div class="service-item fade-up">
+      <div class="service-image"><img src="https://shisyu112-rin.com/wp-content/uploads/2025/07/3d-embroidered-banner02.jpg" alt="3Dウレタン刺繍"></div>
+      <div class="service-info"><div class="service-header"><div class="service-num">04</div><h3>3D刺繍（ウレタン刺繍）</h3></div><div class="service-body"><p>立体感のあるウレタン刺繍で、キャップやウェアをワンランク上の仕上がりに。存在感のある刺繍をお求めの方におすすめです。</p><a href="#" class="service-link">詳しく見る →</a></div></div>
+    </div>
+    <div class="service-item fade-up">
+      <div class="service-image"><img src="https://shisyu112-rin.com/wp-content/uploads/2024/06/baseball-top.jpg" alt="ユニフォーム刺繍"></div>
+      <div class="service-info"><div class="service-header"><div class="service-num">05</div><h3>ユニフォーム刺繍</h3></div><div class="service-body"><p>野球をはじめ、各種スポーツのユニフォームやチームウェアへの刺繍を承ります。チーム名、背番号、個人名など対応可能です。</p><a href="#" class="service-link">詳しく見る →</a></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="merits-section">
+  <div class="section-inner">
+    <div class="section-label fade-up">Why Choose Us</div>
+    <h2 class="section-title fade-up">当店が選ばれる理由</h2>
+    <p class="section-desc fade-up">お客様に少しでもご満足いただけるよう、心がけていること。</p>
+    <div class="merits-grid">
+      <div class="merit-card fade-up"><div class="merit-number">01</div><h3>1枚から対応</h3><p>大量注文でなくても大丈夫。プレゼントの1枚、お試しの1枚からお気軽にご注文いただけます。個人・法人を問いません。</p></div>
+      <div class="merit-card fade-up"><div class="merit-number">02</div><h3>価格と品質のバランス</h3><p>安いだけでも、高いだけでもない。大事なのはバランス。ご納得いただける品質と価格を常に心がけています。</p></div>
+      <div class="merit-card fade-up"><div class="merit-number">03</div><h3>丁寧なやりとり</h3><p>仕上がりのイメージや細かなご要望など、しっかり打ち合わせた上で制作に入ります。安心してお任せください。</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="flow-section">
+  <div class="section-inner">
+    <div class="section-label fade-up">Flow</div>
+    <h2 class="section-title fade-up">ご注文から納品までの流れ</h2>
+    <p class="section-desc fade-up">お問い合わせから納品まで、安心のステップで進めます。</p>
+    <div class="flow-steps">
+      <div class="flow-step fade-up"><div class="flow-circle">💬</div><div class="flow-step-num">STEP 01</div><h3>お問い合わせ</h3><p>LINEまたはお問い合わせフォームからお気軽にご連絡ください。</p></div>
+      <div class="flow-step fade-up"><div class="flow-circle">📋</div><div class="flow-step-num">STEP 02</div><h3>打ち合わせ</h3><p>ご要望やデザインの詳細を確認し、お見積もりをお出しします。</p></div>
+      <div class="flow-step fade-up"><div class="flow-circle">🪡</div><div class="flow-step-num">STEP 03</div><h3>刺繍制作</h3><p>双方合意のもと、丁寧に刺繍を施していきます。</p></div>
+      <div class="flow-step fade-up"><div class="flow-circle">🎁</div><div class="flow-step-num">STEP 04</div><h3>品質確認・納品</h3><p>仕上がりをしっかり確認し、ご指定の方法でお届けします。</p></div>
+    </div>
+    <div class="note-box fade-up"><strong>ご注意事項</strong><br>・内容次第でお受けできない場合もございます。あらかじめご了承ください。<br>・1～5月は繁忙期のため、仕上がりまでにお時間をいただく場合があります。<br>・遠方のお客様は別途送料・振込手数料のご負担をお願いしております。<br>・すでに入っている刺繍を解いて入れ替える場合、別途300〜500円程度かかります。</div>
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="section-inner">
+    <p class="cta-title fade-up">まずはお気軽にご相談ください</p>
+    <p class="cta-desc fade-up">見積もり・お問い合わせは無料です。LINEからもご相談いただけます。</p>
+    <div class="cta-buttons fade-up"><a href="#" class="btn btn-white">お問い合わせフォーム →</a><a href="#" class="btn btn-outline-white">LINEで相談する 💬</a></div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-logo">刺繍工房りん<small>山口県柳井市 ｜ 個人・法人 1枚から対応</small></div>
+    <p>© 2024 刺繍工房りん</p>
+  </div>
+</footer>
+
+<script>
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold:0.1, rootMargin:'0px 0px -40px 0px' });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
