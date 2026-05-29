@@ -1,1 +1,0 @@
-# shisyu-rin-mockup
